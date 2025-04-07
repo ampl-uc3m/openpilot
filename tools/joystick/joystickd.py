@@ -47,7 +47,16 @@ def joystickd_thread():
 
     if CC.longActive:
       actuators.accel = 4.0 * float(np.clip(joystick_axes[0], -1, 1))
-      actuators.longControlState = LongCtrlState.pid if sm['carState'].vEgo > CP.vEgoStopping else LongCtrlState.stopping
+      actuators.longControlState = LongCtrlState.pid #if sm['carState'].vEgo > CP.vEgoStopping else LongCtrlState.stopping
+
+    #if CC.longActive:
+    #  actuators.accel = 4.0 * float(np.clip(joystick_axes[0], -1, 1))
+    #  if sm['carState'].vEgo > CP.vEgoStopping:
+    #    actuators.longControlState = LongCtrlState.pid
+    #  elif (sm['carState'].vEgo == CP.vEgoStopping and not joystick_axes == [0.0, 0.0]):
+    #    actuators.longControlState = LongCtrlState.pid
+    #  else:
+    #    actuators.longControlState = LongCtrlState.stopping
 
     if CC.latActive:
       max_curvature = MAX_LAT_ACCEL / max(sm['carState'].vEgo ** 2, 5)
