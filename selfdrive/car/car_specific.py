@@ -31,7 +31,7 @@ class MockCarState:
 
 
 class CarSpecificEvents:
-  def __init__(self, CP: structs.CarParams):
+  def __init__(self, CP: structs.CarParams): # type: ignore
     self.CP = CP
 
     self.steering_unpressed = 0
@@ -146,10 +146,13 @@ class CarSpecificEvents:
       # low speed steer alert hysteresis logic (only for cars with steer cut off above 10 m/s)
       if CS.vEgo < (self.CP.minSteerSpeed + 2.) and self.CP.minSteerSpeed > 10.:
         self.low_speed_alert = True
+        #print("Hyundai: Low speed alert ACTIVATED") # Added print
       if CS.vEgo > (self.CP.minSteerSpeed + 4.):
         self.low_speed_alert = False
+        #print("Hyundai: Low speed alert DEACTIVATED") # Added print
       if self.low_speed_alert:
         events.add(EventName.belowSteerSpeed)
+        #print("Hyundai: belowSteerSpeed event added") # Added print
 
     else:
       events = self.create_common_events(CS, CS_prev)
@@ -162,47 +165,68 @@ class CarSpecificEvents:
 
     if CS.doorOpen:
       events.add(EventName.doorOpen)
+      print("doorOpen Event Added") # Added print
     if CS.seatbeltUnlatched:
       events.add(EventName.seatbeltNotLatched)
+      print("seatbeltNotLatched Event Added") # Added print
     if CS.gearShifter != GearShifter.drive and (extra_gears is None or
        CS.gearShifter not in extra_gears):
       events.add(EventName.wrongGear)
+      #print("wrongGear Event Added") # Added print
     if CS.gearShifter == GearShifter.reverse:
       events.add(EventName.reverseGear)
+      #print("reverseGear Event Added") # Added print
     if not CS.cruiseState.available:
       events.add(EventName.wrongCarMode)
+      #print("wrongCarMode Event Added") # Added print
     if CS.espDisabled:
       events.add(EventName.espDisabled)
+      print("espDisabled Event Added") # Added print
     if CS.espActive:
       events.add(EventName.espActive)
+      print("ESP Active Event Added") # Added print
     if CS.stockFcw:
       events.add(EventName.stockFcw)
+      print("Stock FCW Event Added") # Added print
     if CS.stockAeb:
       events.add(EventName.stockAeb)
+      print("Stock AEB Event Added") # Added print
     if CS.vEgo > MAX_CTRL_SPEED:
       events.add(EventName.speedTooHigh)
+      print("Speed Too High Event Added") # Added print
     if CS.cruiseState.nonAdaptive:
       events.add(EventName.wrongCruiseMode)
+      print("Wrong Cruise Mode Event Added") # Added print
     if CS.brakeHoldActive and self.CP.openpilotLongitudinalControl:
       events.add(EventName.brakeHold)
+      print("Brake Hold Event Added") # Added print
     if CS.parkingBrake:
       events.add(EventName.parkBrake)
+      print("Park Brake Event Added") # Added print
     if CS.accFaulted:
       events.add(EventName.accFaulted)
+      print("ACC Faulted Event Added") # Added print
     if CS.steeringPressed:
       events.add(EventName.steerOverride)
+      #print("Steer Override Event Added") # Added print
     if CS.brakePressed and CS.standstill:
       events.add(EventName.preEnableStandstill)
+      #print("Pre Enable Standstill Event Added") # Added print
     if CS.gasPressed:
       events.add(EventName.gasPressedOverride)
+      #print("Gas Pressed Override Event Added") # Added print
     if CS.vehicleSensorsInvalid:
       events.add(EventName.vehicleSensorsInvalid)
+      print("Vehicle Sensors Invalid Event Added") # Added print
     if CS.invalidLkasSetting:
       events.add(EventName.invalidLkasSetting)
+      print("Invalid LKAS Setting Event Added") # Added print
     if CS.lowSpeedAlert:
       events.add(EventName.belowSteerSpeed)
+      print("Below Steer Speed Event Added") # Added print
     if CS.buttonEnable:
       events.add(EventName.buttonEnable)
+      print("Button Enable Event Added") # Added print
 
     # Handle cancel button presses
     for b in CS.buttonEvents:
@@ -210,6 +234,7 @@ class CarSpecificEvents:
       # TODO: only check the cancel button with openpilot longitudinal on all brands to match panda safety
       if b.type == ButtonType.cancel and (allow_button_cancel or not self.CP.pcmCruise):
         events.add(EventName.buttonCancel)
+        print("Cancel Button pressed!") # Added print
 
     # Handle permanent and temporary steering faults
     self.steering_unpressed = 0 if CS.steeringPressed else self.steering_unpressed + 1
@@ -236,7 +261,9 @@ class CarSpecificEvents:
     if pcm_enable:
       if CS.cruiseState.enabled and not CS_prev.cruiseState.enabled and allow_enable:
         events.add(EventName.pcmEnable)
+        #print("pcmEnable Event Added!")
       elif not CS.cruiseState.enabled:
         events.add(EventName.pcmDisable)
+        #print("pcmDisable Event Added!")
 
     return events

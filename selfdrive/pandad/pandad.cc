@@ -368,7 +368,7 @@ void process_panda_state(std::vector<Panda *> &pandas, PubMaster *pm, bool engag
 void process_peripheral_state(Panda *panda, PubMaster *pm, bool no_fan_control) {
   static SubMaster sm({"deviceState", "driverCameraState"});
 
-  static uint64_t last_driver_camera_t = 0;
+//  static uint64_t last_driver_camera_t = 0;
   static uint16_t prev_fan_speed = 999;
   static uint16_t ir_pwr = 0;
   static uint16_t prev_ir_pwr = 999;
@@ -385,7 +385,7 @@ void process_peripheral_state(Panda *panda, PubMaster *pm, bool no_fan_control) 
         prev_fan_speed = fan_speed;
       }
     }
-
+/*
     if (sm.updated("driverCameraState")) {
       auto event = sm["driverCameraState"];
       int cur_integ_lines = event.getDriverCameraState().getIntegLines();
@@ -406,7 +406,7 @@ void process_peripheral_state(Panda *panda, PubMaster *pm, bool no_fan_control) 
     if (nanos_since_boot() - last_driver_camera_t > 1e9) {
       ir_pwr = 0;
     }
-
+*/
     if (ir_pwr != prev_ir_pwr || sm.frame % 100 == 0 || ir_pwr >= 50.0) {
       panda->set_ir_pwr(ir_pwr);
       Hardware::set_ir_power(ir_pwr);

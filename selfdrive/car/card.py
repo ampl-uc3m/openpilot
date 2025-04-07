@@ -98,7 +98,8 @@ class Car:
         with car.CarParams.from_bytes(cached_params_raw) as _cached_params:
           cached_params = _cached_params
 
-      self.CI = get_car(*self.can_callbacks, obd_callback(self.params), experimental_long_allowed, num_pandas, cached_params)
+      self.CI = get_car(*self.can_callbacks, obd_callback(self.params), True, num_pandas, cached_params) #Arsany: replaced experimental_long_allowed by True
+      #self.CI = get_car(*self.can_callbacks, obd_callback(self.params), experimental_long_allowed, num_pandas, cached_params) #Arsany: Original line
       self.RI = get_radar_interface(self.CI.CP)
       self.CP = self.CI.CP
 
@@ -160,7 +161,8 @@ class Car:
     self.v_cruise_helper = VCruiseHelper(self.CP)
 
     self.is_metric = self.params.get_bool("IsMetric")
-    self.experimental_mode = self.params.get_bool("ExperimentalMode")
+    self.experimental_mode = True #Arsany
+    #self.experimental_mode = self.params.get_bool("ExperimentalMode") #Arsany
 
     # card is driven by can recv, expected at 100Hz
     self.rk = Ratekeeper(100, print_delay_threshold=None)
@@ -193,7 +195,8 @@ class Car:
     self.v_cruise_helper.update_v_cruise(CS, self.sm['carControl'].enabled, self.is_metric)
     if self.sm['carControl'].enabled and not self.CC_prev.enabled:
       # Use CarState w/ buttons from the step selfdrived enables on
-      self.v_cruise_helper.initialize_v_cruise(self.CS_prev, self.experimental_mode)
+      self.v_cruise_helper.initialize_v_cruise(self.CS_prev, self.experimental_mode) #Arsany
+      #self.v_cruise_helper.initialize_v_cruise(self.CS_prev, self.experimental_mode) #Arsany
 
     # TODO: mirror the carState.cruiseState struct?
     CS.vCruise = float(self.v_cruise_helper.v_cruise_kph)
@@ -265,7 +268,8 @@ class Car:
   def params_thread(self, evt):
     while not evt.is_set():
       self.is_metric = self.params.get_bool("IsMetric")
-      self.experimental_mode = self.params.get_bool("ExperimentalMode") and self.CP.openpilotLongitudinalControl
+      self.experimental_mode = True #Arsany
+      #self.experimental_mode = self.params.get_bool("ExperimentalMode") and self.CP.openpilotLongitudinalControl #Arsany
       time.sleep(0.1)
 
   def card_thread(self):
