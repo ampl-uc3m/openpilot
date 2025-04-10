@@ -5,7 +5,7 @@ import time
 import uuid
 from pathlib import Path
 from collections import defaultdict
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 from typing import NoReturn
 
 from openpilot.common.params import Params
@@ -17,6 +17,7 @@ from openpilot.common.file_helpers import atomic_write_in_dir
 from openpilot.system.version import get_build_metadata
 from openpilot.system.loggerd.config import STATS_DIR_FILE_LIMIT, STATS_SOCKET, STATS_FLUSH_TIME_S
 
+UTC = timezone.utc
 
 class METRIC_TYPE:
   GAUGE = 'g'

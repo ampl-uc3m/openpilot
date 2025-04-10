@@ -4,7 +4,10 @@ import json
 import jwt
 from pathlib import Path
 
-from datetime import datetime, timedelta, UTC
+from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
+UTC = ZoneInfo("UTC")
+
 from openpilot.common.api import api_get
 from openpilot.common.params import Params
 from openpilot.common.spinner import Spinner
