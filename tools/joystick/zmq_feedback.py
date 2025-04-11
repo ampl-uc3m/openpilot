@@ -37,6 +37,8 @@ def main():
 
         cruise_control_enabled = sm['carState'].cruiseState.enabled
 
+        steering_angle = sm['carState'].steeringAngleDeg
+
         print(f"max angle: {max_angle:.2f}")
 
         print("cruise enbled", cruise_control_enabled)
@@ -46,6 +48,7 @@ def main():
         data = {
             "max_angle": round(max_angle, 3),
             "cruise_control_enabled": int(cruise_control_enabled),
+            "steering_angle": steering_angle,
             "timestamp": time.time()
         }
 
