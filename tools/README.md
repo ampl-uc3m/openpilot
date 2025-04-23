@@ -12,14 +12,8 @@ Most of openpilot should work natively on macOS. On Windows you can use WSL for 
 
 NOTE: This repository uses Git LFS for large files. Ensure you have [Git LFS](https://git-lfs.com/) installed and set up before cloning or working with it.
 
-Either do a partial clone for faster download:
 ``` bash
-git clone --filter=blob:none --recurse-submodules --also-filter-submodules https://github.com/commaai/openpilot.git
-```
-
-or do a full clone:
-``` bash
-git clone --recurse-submodules https://github.com/commaai/openpilot.git
+git clone --recurse-submodules https://github.com/fervh/openpilot.git
 ```
 
 **2. Run the setup script**
