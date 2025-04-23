@@ -20,7 +20,7 @@ git clone --recurse-submodules https://github.com/fervh/openpilot.git
 
 ``` bash
 cd openpilot
-tools/op.sh setup
+tools/ubuntu_setup.sh
 ```
 
 **3. Git LFS**
