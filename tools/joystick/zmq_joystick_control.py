@@ -16,7 +16,7 @@ class ZMQController:
         # Setup ZeroMQ subscriber
         self.zmq_context = zmq.Context()
         self.zmq_socket = self.zmq_context.socket(zmq.SUB)
-        self.zmq_socket.connect("tcp://localhost:5557")  # Connect to the bridge
+        self.zmq_socket.connect("tcp://localhost:5555")  # Connect to the bridge
         self.zmq_socket.setsockopt_string(zmq.SUBSCRIBE, "ros_control")
 
         # Initialize values
@@ -131,9 +131,9 @@ if __name__ == '__main__':
 
     print()
     print('Using ZMQ bridge for control from ROS2 topics (with trigger remapping):')
-    print('- Steering: /steer_pub (Float64 -1.0 to 1.0)')
-    print('- Braking: /brake_pub (Float64 1.0 to -1.0) → remapped to 0.0 to 1.0')
-    print('- Acceleration: /accel_pub (Float64 1.0 to -1.0) → remapped to 0.0 to 1.0')
+    print('- Steering: (Float64 -1.0 to 1.0)')
+    print('- Braking:(Float64 1.0 to -1.0) → remapped to 0.0 to 1.0')
+    print('- Acceleration:(Float64 1.0 to -1.0) → remapped to 0.0 to 1.0')
     print('Trigger behavior:')
     print('- Trigger not pressed = 1.0 (raw) → 0.0 (remapped)')
     print('- Trigger half pressed = 0.0 (raw) → 0.5 (remapped)')
