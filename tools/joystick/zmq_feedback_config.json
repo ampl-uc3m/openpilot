@@ -6,45 +6,55 @@
       "aEgo": {"path": "aEgo", "send": true, "description": "Vehicle acceleration (m/s²)"},
       "yawRate": {"path": "yawRate", "send": true, "description": "Yaw rate (rad/s)"},
       "standstill": {"path": "standstill", "send": true, "description": "Vehicle is not moving"},
-      
+
       "wheelSpeedFL": {"path": "wheelSpeeds.fl", "send": true, "description": "Front left wheel speed"},
       "wheelSpeedFR": {"path": "wheelSpeeds.fr", "send": true, "description": "Front right wheel speed"},
       "wheelSpeedRL": {"path": "wheelSpeeds.rl", "send": true, "description": "Rear left wheel speed"},
       "wheelSpeedRR": {"path": "wheelSpeeds.rr", "send": true, "description": "Rear right wheel speed"},
-      
+
       "gas": {"path": "gas", "send": true, "description": "Gas pedal position (0-1)"},
       "gasPressed": {"path": "gasPressed", "send": true, "description": "Gas pedal is pressed"},
       "brake": {"path": "brake", "send": true, "description": "Brake pedal position (0-1)"},
       "brakePressed": {"path": "brakePressed", "send": true, "description": "Brake pedal is pressed"},
       "regenBraking": {"path": "regenBraking", "send": true, "description": "Regenerative braking active"},
-      
+
       "engineRpm": {"path": "engineRpm", "send": true, "description": "Engine RPM"},
-      
+
       "steeringAngleDeg": {"path": "steeringAngleDeg", "send": true, "description": "Steering angle in degrees"},
       "steeringRateDeg": {"path": "steeringRateDeg", "send": true, "description": "Steering rate in degrees/s"},
       "steeringTorque": {"path": "steeringTorque", "send": true, "description": "Steering torque"},
       "steeringPressed": {"path": "steeringPressed", "send": true, "description": "Driver is using steering wheel"},
-      
+
       "cruiseEnabled": {"path": "cruiseState.enabled", "send": true, "description": "Cruise control is enabled"},
       "cruiseSpeed": {"path": "cruiseState.speed", "send": true, "description": "Cruise control set speed"},
       "cruiseAvailable": {"path": "cruiseState.available", "send": true, "description": "Cruise control is available"},
       "cruiseStandstill": {"path": "cruiseState.standstill", "send": true, "description": "Cruise control in standstill mode"},
-      
+
       "gearShifter": {"path": "gearShifter", "send": true, "description": "Current gear position"},
-      
+
       "leftBlinker": {"path": "leftBlinker", "send": true, "description": "Left turn signal active"},
       "rightBlinker": {"path": "rightBlinker", "send": true, "description": "Right turn signal active"},
-      
+
+      "lightState": { "path": "lightInfo.lightState", "send": true, "description": "State of the light switch (0 off 1 pos 2 high 3 auto)" },
+      "lowLight": { "path": "lightInfo.lowLight", "send": true, "description": "Low beam headlights state" },
+      "highLight": { "path": "lightInfo.highLight", "send": true, "description": "High beam headlights state" },
+      "hazardLight": { "path": "lightInfo.hazardLight", "send": true, "description": "Hazard lights active" },
+
+      "wiperInt": { "path": "wiperInfo.wiperInt", "send": true, "description": "Wipers intensity (0-4)" },
+      "wiperLow": { "path": "wiperInfo.wiperLow", "send": true, "description": "Wipers low speed mode" },
+      "wiperHigh": { "path": "wiperInfo.wiperHigh", "send": true, "description": "Wipers high speed mode" },
+      "wiperAuto": { "path": "wiperInfo.wiperAuto", "send": true, "description": "Automatic wipers active" },
+
       "doorOpen": {"path": "doorOpen", "send": true, "description": "Door is open"},
       "seatbeltUnlatched": {"path": "seatbeltUnlatched", "send": true, "description": "Seatbelt is unbuckled"},
       "espDisabled": {"path": "espDisabled", "send": true, "description": "Electronic stability control disabled"},
       "parkingBrake": {"path": "parkingBrake", "send": true, "description": "Parking brake engaged"},
-      
+
       "fuelGauge": {"path": "fuelGauge", "send": true, "description": "Fuel level (0-1)"},
       "charging": {"path": "charging", "send": true, "description": "Vehicle is charging (EVs)"},
-      
+
       "max_angle": {"path": "calculate", "send": true, "description": "Maximum steering angle based on speed"},
-      
+
       "timestamp": {"path": "timestamp", "send": true, "description": "Current timestamp"}
     }
   }
