@@ -43,7 +43,11 @@ class ZMQController:
             self.last_throttle_value = self.axes_values['throttle']
 
         # Calculate combined value (throttle is positive, brake is negative)
-        combined = float(self.axes_values['throttle'] - self.axes_values['brake'])
+        if self.axes_values['brake'] != 0.0:
+            combined = (-1.0)*float(self.axes_values['brake'])
+
+        else:
+            combined = float(self.axes_values['throttle'])
 
         # Ensure within bounds
         combined = float(np.clip(combined, -1.0, 1.0))
@@ -58,27 +62,14 @@ class ZMQController:
                 topic, data_str = message.split(" ", 1)
                 data = json.loads(data_str)
 
-                # Update steer value as normal
+                # Update values
                 self.axes_values['steer'] = float(np.clip(float(data['steer']), -1.0, 1.0))
 
-                # REMAP: Convert brake from trigger range (1 to -1) to standard range (0 to 1)
-                # Where 1 (not pressed) → 0 (no brake) and -1 (fully pressed) → 1 (full brake)
-                raw_brake = float(data['brake'])
-                remapped_brake = float((1 - raw_brake) / 2)  # Linear remapping
-                self.axes_values['brake'] = remapped_brake
+                self.axes_values['brake'] = float(data['brake'])
 
-                # REMAP: Convert throttle from trigger range (1 to -1) to standard range (0 to 1)
-                # Where 1 (not pressed) → 0 (no throttle) and -1 (fully pressed) → 1 (full throttle)
-                raw_throttle = float(data['throttle'])
-                remapped_throttle = float((1 - raw_throttle) / 2)  # Linear remapping
-                self.axes_values['throttle'] = remapped_throttle
+                self.axes_values['throttle'] = float(data['throttle'])
 
                 self.last_update = data['timestamp']
-
-                # Show raw and remapped values when they change significantly
-                # if abs(raw_brake - 1.0) > 0.05 or abs(raw_throttle - 1.0) > 0.05:
-                  #  print(f"REMAP: brake {raw_brake:.2f}→{remapped_brake:.2f}, throttle {raw_throttle:.2f}→{remapped_throttle:.2f}")
-
 
                 return True
         except Exception as e:
