@@ -92,7 +92,7 @@ class Joystick:
 
 
 def send_thread(joystick):
-  pm = messaging.PubMaster(['testJoystick'])
+  # pm = messaging.PubMaster(['testJoystick'])
 
   rk = Ratekeeper(100, print_delay_threshold=None)
 
@@ -104,7 +104,7 @@ def send_thread(joystick):
     joystick_msg.valid = True
     joystick_msg.testJoystick.axes = [joystick.axes_values[ax] for ax in joystick.axes_order]
 
-    pm.send('testJoystick', joystick_msg)
+    # pm.send('testJoystick', joystick_msg)
 
     rk.keep_time()
 
